@@ -1,10 +1,10 @@
 <?php 
 
 /**
- * @package AlecadddPlugin
+ * @package DraganaPlugin
 */
 
-class AlecadddPluginActivate
+class DraganaPluginActivate
 {
     public static function activate() {
         flush_rewrite_rules();
