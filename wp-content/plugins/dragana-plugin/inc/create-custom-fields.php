@@ -15,13 +15,13 @@ class CreateCustomFields {
             'title' => 'Real Estate Fields',
             'fields' => [
                 [
-                    'key' => 'field_1',
+                    'key' => 'sub_title',
                     'label' => 'Real Estate Sub Title',
                     'name' => 'sub_title',
                     'type' => 'text',
                 ],
                 [
-                    'key' => 'field_2',
+                    'key' => 'image',
                     'label' => 'Real Estate Image',
                     'name' => 'image',
                     'type' => 'image',
