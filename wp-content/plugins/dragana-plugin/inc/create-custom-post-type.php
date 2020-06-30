@@ -4,9 +4,9 @@
 */
 
 require_once plugin_dir_path(__FILE__) . 'create-custom-taxonomy.php';
+require_once plugin_dir_path(__FILE__) . 'create-custom-fields.php';
 
 class CreateCustomPostType {
-
     public function __construct( string $name, string $singularName, string $slug, array $taxonomies, $menuName) {
         $this->name = $name;
         $this->singularName = $singularName;
@@ -33,7 +33,6 @@ class CreateCustomPostType {
                     'not_found_in_trash' => ( 'No ' . $this->menuName . ' found in the Trash' ),
                     'parent_item_colon' => '',
                     'menu_name' => $this->menuName,
-                    // 'menu_name' => ucwords(explode(' ', str_replace('-', ' ', $this-)));
                 ],
                 'description' => 'Displays city ' . $this->menuName . ' and their ratings',
                 'public' => true,
@@ -44,6 +43,7 @@ class CreateCustomPostType {
             ]
         );
         $this->create_taxonomies();
+        $customFileds = new CreateCustomFields();
     }
 
     public function create_taxonomies() {

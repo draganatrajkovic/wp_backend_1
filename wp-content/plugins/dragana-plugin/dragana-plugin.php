@@ -12,6 +12,9 @@ Author URI: http://draganatrajkovic.com
 License: GPLv2 or later
 Tex Domain: dragana-plugin
 */
+require_once plugin_dir_path(__FILE__) . 'inc/dragana-plugin-activate.php'; 
+require_once plugin_dir_path(__FILE__) . 'inc/dragana-plugin-deactivate.php';
+require_once plugin_dir_path(__FILE__) . 'inc/create-custom-post-type.php';
 
 if (! defined('ABSPATH')) {
     die;
@@ -24,19 +27,16 @@ class DraganaPlugin
     }
 
     public function activate() {
-        require_once plugin_dir_path(__FILE__) . 'inc/dragana-plugin-activate.php';
         DraganaPluginActivate::activate();
     }
 
     public function deactivate() {
-        require_once plugin_dir_path(__FILE__) . 'inc/dragana-plugin-deactivate.php';
         DraganaPluginDeactivate::deactivate();
     }
 
     public function create_custom_post_type() {
-        require_once plugin_dir_path(__FILE__) . 'inc/create-custom-post-type.php';
         if (class_exists('CreateCustomPostType')) {
-            $music = new CreateCustomPostType('real-estate', 'Song', 'music', ['location', 'type'], 'Real Estate');
+            $house = new CreateCustomPostType('real-estate', 'House', 'real-estate', ['location', 'type'], 'Real Estate');
             //za naziv koji koristimo za registraciju custom posta ne smemo navoditi velika slova i razmake... 
             //za prikaz u meniju korisiti labels/'menu_name' ili labels/name
         }

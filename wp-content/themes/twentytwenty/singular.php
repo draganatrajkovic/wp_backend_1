@@ -17,7 +17,7 @@ get_header();
 	<?php
 
 	if ( have_posts() ) {
-
+		var_dump(get_the_ID());
 		while ( have_posts() ) {
 			the_post();
 
@@ -27,7 +27,13 @@ get_header();
 
 	?>
 
+	<!-- awdawdawdw -->
+
 </main><!-- #site-content -->
+
+<!-- <script>
+	
+</script> -->
 
 <?php get_template_part( 'template-parts/footer-menus-widgets' ); ?>
 
