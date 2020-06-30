@@ -1,5 +1,4 @@
 <?php 
-
 /**
  * @package DraganaPlugin
 */
@@ -13,7 +12,6 @@ Author URI: http://draganatrajkovic.com
 License: GPLv2 or later
 Tex Domain: dragana-plugin
 */
-
 
 if (! defined('ABSPATH')) {
     die;
@@ -38,8 +36,9 @@ class DraganaPlugin
     public function create_custom_post_type() {
         require_once plugin_dir_path(__FILE__) . 'inc/create-custom-post-type.php';
         if (class_exists('CreateCustomPostType')) {
-            // var_dump('test');
-            $music = new CreateCustomPostType('Music', 'Song', 'music', array('taxonomy 1', 'taxonomy 2'));
+            $music = new CreateCustomPostType('real-estate', 'Song', 'music', ['location', 'type'], 'Real Estate');
+            //za naziv koji koristimo za registraciju custom posta ne smemo navoditi velika slova i razmake... 
+            //za prikaz u meniju korisiti labels/'menu_name' ili labels/name
         }
     }
 }
