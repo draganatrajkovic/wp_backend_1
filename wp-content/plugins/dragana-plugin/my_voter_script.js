@@ -46,19 +46,20 @@ function handleDeletePost() {
 }
 
 function handleAddPost() {
-   // let id = document.getElementById('id').value;
-   let title = document.getElementById('title').value;
-   let sub_title = document.getElementById('sub_title').value;
-   let content = document.getElementById('content').value;
+   let user_id = document.getElementById('user_id').value;
+   let title = document.getElementById('new-title').value;
+   let sub_title = document.getElementById('new-sub_title').value;
+   let content = document.getElementById('new-content').value;
    
    const obj = {
+      'user_id' : user_id,
       'title' : title,
       'sub_title' : sub_title,
       'content': content,
+      // 'post_status' : 'publish',
+      // 'post_type' : 'real-estate',
       'action': "ajaxCallAdd"
    }
-      alert(obj.content)
-
       $.ajax({
          url: myAjax.ajaxurl,
          type: 'POST',

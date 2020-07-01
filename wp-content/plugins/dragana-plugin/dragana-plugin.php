@@ -54,8 +54,6 @@ class DraganaPlugin
         ];
 
         wp_update_post($newPost);
-        var_dump($newPost);
-
         // wp_update_post( $newPost, true );                        
         // if (is_wp_error($id)) {
         //     $errors = $id->get_error_messages();
@@ -71,7 +69,23 @@ class DraganaPlugin
     }
 
     public function ajaxCallAdd() {
-        alert('ajaxCallAdd');
+        $user_id = $_POST['user_id'];
+        $title = $_POST['title'];
+        $sub_title = $_POST['sub_title'];
+        $content = $_POST['content'];
+        // $post_status = $_POST['post_status'];
+        // $post_type = $_POST['post_type'];
+        alert($title);
+
+        $newPost = [
+            'post_author'=> $user_id, 
+            'post_title'=> $title, 
+            'sub_title'=> $sub_title,
+            'post_content'=> $content,
+            'post_status' => $post_status,
+            'post_type' => $post_type
+        ];
+        wp_insert_post($newPost, $wp_error = false );
     }
 
     public function my_script_enqueuer() {
