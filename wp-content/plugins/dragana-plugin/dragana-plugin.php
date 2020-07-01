@@ -23,7 +23,10 @@ if (! defined('ABSPATH')) {
 class DraganaPlugin 
 {
     public function __construct() {
-        add_action('init', array($this, 'create_custom_post_type'));
+        add_action('init', array($this, 'start'));
+        add_action("wp_ajax_ajaxCall", [ $this, 'ajaxCall' ]);
+        add_action("wp_ajax_ajaxCallDelete", [ $this, 'ajaxCallDelete' ]);
+        add_action("wp_ajax_ajaxCallAdd", [ $this, 'ajaxCallAdd' ]);
     }
 
     public function activate() {
@@ -32,6 +35,51 @@ class DraganaPlugin
 
     public function deactivate() {
         DraganaPluginDeactivate::deactivate();
+    }
+
+    public function start() {
+        $this->create_custom_post_type();
+        $this->my_script_enqueuer();
+    }
+
+    public function ajaxCall() {
+        $id = $_POST['id'];
+        $title = $_POST['title'];
+        $sub_title = $_POST['sub_title'];
+
+        $newPost = [
+            'ID'=> $id, 
+            'post_title'=> $title, 
+            'sub_title'=> $sub_title
+        ];
+
+        wp_update_post($newPost);
+        var_dump($newPost);
+
+        // wp_update_post( $newPost, true );                        
+        // if (is_wp_error($id)) {
+        //     $errors = $id->get_error_messages();
+        //     foreach ($errors as $error) {
+        //         echo $error;
+        //     }
+        // }
+    }
+
+    public function ajaxCallDelete() {
+        $id = $_POST['id'];
+        wp_delete_post($id, true);
+    }
+
+    public function ajaxCallAdd() {
+        alert('ajaxCallAdd');
+    }
+
+    public function my_script_enqueuer() {
+        wp_register_script( "my_voter_script", WP_PLUGIN_URL.'/dragana-plugin/my_voter_script.js', array('jquery') );
+        wp_localize_script( 'my_voter_script', 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'userId' => get_current_user_id()));        
+     
+        wp_enqueue_script( 'jquery' );
+        wp_enqueue_script( 'my_voter_script' );
     }
 
     public function create_custom_post_type() {
