@@ -759,3 +759,11 @@ function twentytwenty_get_elements_array() {
 	return apply_filters( 'twentytwenty_get_elements_array', $elements );
 }
 
+
+//add axios
+add_action('wp_enqueue_scripts', 'axios_scripts');
+function axios_scripts() {
+	wp_enqueue_script( 'axios', 'https://unpkg.com/axios/dist/axios.min.js' );
+	wp_enqueue_script( 'qs', 'https://unpkg.com/qs/dist/qs.js' );
+}
+

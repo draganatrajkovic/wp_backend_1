@@ -20,7 +20,7 @@ class CreateCustomPostType {
         register_post_type($this->name, 
             [
                 'labels' => [
-                    'name' => $this->menuName,
+                    'name' => $this->name,
                     'singular_name' => $this->singularName,
                     'add_new' =>('Add New '. $this->singularName ),
                     'add_new_item' =>('Add New ' . $this->singularName ),
@@ -39,7 +39,7 @@ class CreateCustomPostType {
                 'menu_position' => 4,
                 'supports' => ['title', 'editor', 'thumbnail', 'excerpt', 'comments'],
                 'has_archive' => true,
-                'rewrite' => ['slug' => $this->slug ]
+                'rewrite' => ['slug' => $this->$slug ]
             ]
         );
         $this->create_taxonomies();

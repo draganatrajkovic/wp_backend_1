@@ -107,6 +107,15 @@ get_header();
 	}
 	?>
 
+	<div class="edit-form-wrap">
+		<h2 class="edit-form-title">Add New Real Estate</h2>
+		<input type="hidden" name="user_id" id="user_id" value="<?php echo get_current_user_id(); ?>" />
+		<input id="new-title" type="text" name="new-title" placeholder="Title" />
+		<input id="new-sub_title" type="text" name="new-sub_title" placeholder="Sub Title" />
+		<input id="new-content" type="text" name="new-content" placeholder="Content" />
+		<button onclick="handleAddPost()">Submit New Post</button>
+	</div>
+
 	<?php get_template_part( 'template-parts/pagination' ); ?>
 
 </main><!-- #site-content -->
