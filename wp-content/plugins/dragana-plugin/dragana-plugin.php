@@ -27,6 +27,8 @@ class DraganaPlugin
         add_action("wp_ajax_ajaxCallUpdate", [ $this, 'ajaxCallUpdate' ]);
         add_action("wp_ajax_ajaxCallDelete", [ $this, 'ajaxCallDelete' ]);
         add_action("wp_ajax_ajaxCallAdd", [ $this, 'ajaxCallAdd' ]);
+        add_action("wp_ajax_ajaxCallSearch", [ $this, 'ajaxCallSearch' ]);
+        // add_action('pre_get_posts',[$this, 'getCustomPosts']);
     }
 
     public function activate() {
@@ -40,6 +42,8 @@ class DraganaPlugin
     public function start() {
         $this->create_custom_post_type();
         $this->my_script_enqueuer();
+        $this->ajaxCallSearch();
+        add_action('pre_get_posts',[$this, 'getCustomPosts']);
     }
 
     public function my_script_enqueuer() {
@@ -86,6 +90,7 @@ class DraganaPlugin
         $title = $_POST['title'];
         $sub_title = $_POST['sub_title'];
         $content = $_POST['content'];
+        var_dump($title);
 
         if (is_user_logged_in()) {
             $newPost = [
@@ -111,6 +116,48 @@ class DraganaPlugin
         } else {
             var_dump('Just for admin!');
         }
+    }
+
+    public function getCustomPosts($query) {
+        // pre_get_posts - modifikuje wordpress loop; na home page-u ce prikazace samo postove sa real-estate post type-om
+        if ( $query->is_home() && $query->is_main_query() && ! is_admin() ) {
+            $query->set( 'post_type', 'real-estate' ); 
+        }
+    }
+
+    public function ajaxCallSearch() {
+        $this->my_script_enqueuer();
+        $searchTerm = $_POST['searchTerm'];
+
+        // $args = array(
+        //     'post_type' => 'real-estate'
+        //     // 'post_title'   => $searchTerm
+        //   );
+           
+        // $posts = get_posts( $args );
+        
+        // foreach ($posts as $post) {
+        //     echo $post->post_title;
+        // }
+
+        $args = ['post_type', 'real-estate'];
+        $query = new WP_Query( $args );
+ 
+        if ( $query->have_posts() ) {
+            echo '<ul>';
+            while ( $query->have_posts() ) {
+                $query->the_post();
+                // if (get_the_title() == 'boba') {
+                    echo '<li>' . get_the_title() . '</li>';
+                // }
+            }
+            echo '</ul>';
+        } else {
+           echo 'no posts found';
+        }
+        /* Restore original Post Data */
+        wp_reset_postdata();
+        
     }
 }
 

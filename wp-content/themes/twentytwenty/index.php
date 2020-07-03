@@ -19,6 +19,10 @@ get_header();
 
 <main id="site-content" role="main">
 
+	<form action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get" class="site-header__search-wrapper js-site-header__search-wrapper">
+		<input type="search" name="s" value="<?php echo the_search_query(); ?>" id="site_search" class="js-search-suggestions-input" autocomplete="off" placeholder="Search by category, brand, product, or SKU">
+	</form>
+
 	<?php
 
 	$archive_title    = '';
